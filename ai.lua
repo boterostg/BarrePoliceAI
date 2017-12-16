@@ -91,7 +91,7 @@ function ai.on_message(self, message)
     message.text = message.text:lower()
     if message.text:gsub(' ', '') == self.info.name then
         return false
-    elseif message.chat.type ~= 'private' and not message.text:match(self.info.name) then
+    elseif message.chat.type ~= 'private' and not message.text:match(self.info.name) and not message.text:lower():match("bot") then
         if not message.reply or not message.reply.from or message.reply.from.id ~= self.info.id then
             return false
         end
