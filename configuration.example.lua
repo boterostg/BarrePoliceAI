@@ -18,7 +18,14 @@
 return { -- Rename this file to configuration.lua for the bot to work!
     ['bot_token'] = '', -- In order for the bot to actually work, you
     -- MUST insert the Telegram bot API token you received from @BotFather.
-    ['debug'] = false -- Turn this on to print EVEN MORE information to the terminal.
+    ['debug'] = false, -- Turn this on to print EVEN MORE information to the terminal.
+    ['redis'] = { -- Configurable options for connecting the bot to redis. Do NOT modify
+    -- these settings if you don't know what you're doing!
+        ['host'] = '127.0.0.1',
+        ['port'] = 6379,
+        ['password'] = nil,
+        ['db'] = 2
+    },
 }
 
 -- End of configuration, you're good to go.
