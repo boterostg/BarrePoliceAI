@@ -18,6 +18,7 @@ local ai = {}
 local configuration = require('configuration')
 local api = require('telegram-bot-lua.core').configure(configuration.bot_token)
 local tools = require('telegram-bot-lua.tools')
+local redis = dofile('libs/redis.lua')
 local http = require('socket.http')
 local url = require('socket.url')
 local ltn12 = require('ltn12')
@@ -87,6 +88,7 @@ function ai.on_message(self, message)
     elseif self.info.name:match(' ') then
         self.info.name = self.info.name:match('^(.-) ')
     end
+    redis:incr('ai:received_messages')
     self.info.name = self.info.name:lower()
     message.text = message.text:lower()
     if message.text:gsub(' ', '') == self.info.name then
@@ -145,6 +147,7 @@ function ai.send_reply(message, text, parse_mode, disable_web_page_preview, repl
             token
         )
     end
+    redis:incr('ai:sent_replies')
     return success
 end
 
